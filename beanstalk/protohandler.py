@@ -233,7 +233,7 @@ def process_reserve():
     x = 'reserve\r\n'
     return x
 
-@interaction(OK('RESERVED', ['jid','bytes'], True), TimeOut('TIMED_OUT'))
+@interaction(OK('RESERVED', ['jid','bytes'], True), TimedOut('TIMED_OUT'))
 def process_reserve_with_timeout(timeout=0):
     '''
      reserve

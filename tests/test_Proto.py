@@ -36,7 +36,7 @@ prototest_info = [
         [
             ('RESERVED 12 5\r\nabcde\r\n',{'state':'ok', 'bytes': 5, 'jid':12,
                 'data':'abcde'}),
-            ('TIMED_OUT\r\n', {'state':'timeout'})
+            ('TIMED_OUT\r\n', {'state':'timedout'})
         ]
     ],
     [

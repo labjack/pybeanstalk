@@ -91,6 +91,8 @@ class ServerConn(object):
     watchlist = property(_get_watchlist, _set_watchlist)
 
     def __getattr__(self, attr):
+        if attr.startswith('__') :
+            return object.__getattr__(self, attr)
         def caller(*args, **kw):
             return self._do_interaction(\
                 *getattr(protohandler, 'process_%s' % attr)(*args, **kw))

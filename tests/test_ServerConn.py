@@ -217,7 +217,7 @@ def test_reserve_timeout_works():
            "of jobs so test behaviour cannot be guaranteed.  Bailing out."
     # essentially an instant poll. This should just timeout!
     x = conn.reserve_with_timeout(0)
-    assert x['state'] == 'timeout'
+    assert x['state'] == 'timedout'
 
 def test_reserve_deadline_soon():
     assert conn.stats()['data']['current-jobs-ready'] == 0, "The server is not empty "\

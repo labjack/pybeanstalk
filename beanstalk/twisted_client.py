@@ -64,10 +64,21 @@ class Beanstalk(basic.LineReceiver):
         self._current = deque()
 
     def connectionMade(self):
-        print "Connected!"
         self.setLineMode()
 
+    def connectionLost(self, reason):
+        """
+        If there are any outstanding commands while the connection to
+        beanstalk is lost, call their errbacks.
+        """
+        while len(self._current) > 0:
+            pending = self._current.popleft()
+            pending.fail(Exception("Connection to beanstalk lost."))
+
     def __getattr__(self, attr):
+        if attr.startswith('__'):
+            return basic.LineReceiver.__getattr__(self, attr)
+        
         def caller(*args, **kw):
             return self.__cmd(attr,
                 *getattr(protohandler, 'process_%s' % attr)(*args, **kw))

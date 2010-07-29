@@ -2,6 +2,7 @@ from twisted.protocols import basic
 from twisted.internet import defer, protocol
 from twisted.python import log
 import protohandler
+import errors
 
 # Stolen from memcached protocol
 try:
@@ -73,7 +74,7 @@ class Beanstalk(basic.LineReceiver):
         """
         while len(self._current) > 0:
             pending = self._current.popleft()
-            pending.fail(Exception("Connection to beanstalk lost."))
+            pending.fail(errors.BeanstalkConnectionLostException("Connection to beanstalk lost."))
 
     def __getattr__(self, attr):
         if attr.startswith('__'):

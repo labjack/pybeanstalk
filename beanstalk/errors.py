@@ -1,6 +1,7 @@
 class FailureError(Exception): pass
 class JobError(FailureError): pass
 
+class BeanstalkConnectionLostException(Exception): pass
 class BeanStalkError(Exception): pass
 class ProtoError(BeanStalkError): pass
 class ServerError(BeanStalkError): pass
